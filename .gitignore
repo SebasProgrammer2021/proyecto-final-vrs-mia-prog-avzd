@@ -1,0 +1,12 @@
+#Archivos Compilados
+*.class
+
+#Archivos Temporales de Maven
+/**/target/
+
+Archivos de Intellij
+*.iml
+/.idea
+
+#Ignora Archivos del sistema Mac
+.DS_store
