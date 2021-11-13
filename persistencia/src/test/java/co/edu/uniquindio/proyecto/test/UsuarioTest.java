@@ -9,11 +9,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.jdbc.Sql;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -28,7 +31,7 @@ public class UsuarioTest {
     //Registrar Usuario
     @Test
     @Sql("classpath:dbInserts.sql")
-    public void registrarUsuarioTest(){
+    public void registrarUsuarioTest() {
 
         //Traigo la ciudad (2) "Pereira"
         Ciudad ciudad = ciudadRepo.findById(2).orElse(null);
@@ -39,7 +42,7 @@ public class UsuarioTest {
         telefonos.put("Trabajo", "7579863");
 
         //Creo un Usuario
-        Usuario usuario = new Usuario(2010, "Mariana Correa", "mariana@email.com", "B02020", "Vendedor",ciudad,telefonos);
+        Usuario usuario = new Usuario(2010, "Mariana Correa", "mariana@email.com", "B02020", "Vendedor", ciudad, telefonos);
         //Guardo el Usuario
         Usuario usuarioGuardado = usuarioRepo.save(usuario);
 
@@ -51,7 +54,7 @@ public class UsuarioTest {
     //Actualizar Usuario
     @Test
     @Sql("classpath:dbInserts.sql")
-    public void actualizarUsuarioTest(){
+    public void actualizarUsuarioTest() {
 
         Usuario guardado = usuarioRepo.findById(2003).orElse(null);
         //modifico el Usuario
@@ -63,14 +66,14 @@ public class UsuarioTest {
         Usuario usuarioBuscado = usuarioRepo.findById(2003).orElse(null);
         //verifico lo modificado
         Assertions.assertEquals("nuevo123", usuarioBuscado.getPassword());
-        System.out.println("--Usuario--: "+usuarioBuscado);
+        System.out.println("--Usuario--: " + usuarioBuscado);
 
     }
 
     //Eliminar Usuario
     @Test
     @Sql("classpath:dbInserts.sql")
-    public void eliminarUsuarioTest(){
+    public void eliminarUsuarioTest() {
 
         //Elimino el Usuario "2004"
         usuarioRepo.deleteById(2004);
@@ -86,11 +89,52 @@ public class UsuarioTest {
     //Listar Usuario
     @Test
     @Sql("classpath:dbInserts.sql")
-    public void listarUsuarioTest(){
+    public void listarUsuarioTest() {
         //Listo los Usuarios
         List<Usuario> usuarios = usuarioRepo.findAll();
 
         //Imprimir la lista de Usuarios
         usuarios.forEach(u -> System.out.println(u));
+    }
+
+    @Test
+    @Sql("classpath:dbInserts.sql")
+    public void filtrarNombreTest() {
+        List<Usuario> lista = usuarioRepo.findAllByNombreContains("Maria");
+        //forma 1
+        lista.forEach(u -> System.out.println(u));
+        //forma 2
+        lista.forEach(System.out::println);
+    }
+
+    @Test
+    @Sql("classpath:dbInserts.sql")
+    public void filtrarEmailTest() {
+        Optional<Usuario> usuario = usuarioRepo.findByEmail("sol@emnail.com");
+
+        if (usuario.isPresent()) {
+            System.out.println(usuario.get());
+        } else {
+            System.out.println("NO_EXISTE_CORREO");
+        }
+    }
+
+    @Test
+    @Sql("classpath:dbInserts.sql")
+    public void paginarListaTest() {
+        Pageable paginador = PageRequest.of(0, 2);
+        Page<Usuario> lista = usuarioRepo.findAll(paginador);
+
+        System.out.println(lista.stream().collect(Collectors.toList()));
+
+    }
+
+    @Test
+    @Sql("classpath:dbInserts.sql")
+    public void ordenarListaTest() {
+        List<Usuario> lista = usuarioRepo.findAll(Sort.by("nombre"));
+
+        System.out.println(lista);
+
     }
 }

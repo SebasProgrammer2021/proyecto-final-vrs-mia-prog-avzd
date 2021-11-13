@@ -20,11 +20,11 @@ insert into ciudad values (4, "Cali");
 insert into ciudad values (5, "Medellin");
 
 -- Insert de Usuario
-insert into usuario values (2001, "Maria Cardenas", "maria@email.com", "B2134", "Vendedor", 1);
-insert into usuario values (2002, "Mario Fuentes", "mario@email.com", "C7896", "Vendedor", 2);
-insert into usuario values (2003, "Sol Ramires", "sol@email.com", "B4562", "Comprador", 3);
-insert into usuario values (2004, "fabian cruz", "fabian@email.com", "C1238", "Comprador", 4);
-insert into usuario values (2005, "Chaves alzate", "chaves@email.com", "C4662", "Comprador", 5);
+insert into usuario values (2001, "maria@email.com", "Maria Cardenas", "B2134", "Vendedor", 1);
+insert into usuario values (2002, "mario@email.com",  "Mario Fuentes", "C7896", "Vendedor", 2);
+insert into usuario values (2003,  "sol@email.com", "Maria Sol  Ramires", "B4562", "Comprador", 3);
+insert into usuario values (2004,  "fabian@email.com", "fabian cruz", "C1238", "Comprador", 4);
+insert into usuario values (2005, "chaves@email.com", "Chaves alzate",  "C4662", "Comprador", 5);
 insert into usuario values (2006, 'Angela Ramirez', 'niyora6002@wii999.com', 'y%NZi2HIUZ', "Comprador", 1);
 insert into usuario values (2007, 'Sofia Cardona', 'jekoxo1677@wii999.com', 'MdmxC#yQHX', "Vendedor", 2);
 insert into usuario values(2008, 'Daniela Restrepo', 'gexovo3160@smuvaj.com', 'TQ,c4^sz&-', "Comprador", 3);
