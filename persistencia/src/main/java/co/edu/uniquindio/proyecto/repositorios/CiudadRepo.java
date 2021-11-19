@@ -1,9 +1,12 @@
 package co.edu.uniquindio.proyecto.repositorios;
 
 import co.edu.uniquindio.proyecto.entidades.Ciudad;
+import co.edu.uniquindio.proyecto.entidades.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -20,4 +23,9 @@ import java.util.Optional;
 public interface CiudadRepo extends JpaRepository<Ciudad, Integer> {
 
     Optional<Ciudad> findByNombre(String nombreCiudad);
+
+//    es necesario ahcer le join cuanod estamos seleccionando una lista de eles de una entidad
+//    join de la entidad con su respectiva lista dentro de la misma clase.
+    @Query("select u from Ciudad c join c.listaUsuarios u where c.nombre = :nombre")
+    List<Usuario> listaUsuarios(String nombre);
 }

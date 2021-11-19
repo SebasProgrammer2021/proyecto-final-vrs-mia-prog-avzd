@@ -63,13 +63,32 @@ public class Producto implements Serializable {
     @Positive
     private Float descuento;
 
+    @ManyToMany
+    @ToString.Exclude
+    private List<Usuario> usuarios;
+
+    @ManyToOne
+    private Ciudad ciudad;
+
     @OneToMany(mappedBy = "producto")
     @ToString.Exclude
     private List<Comentario> listaComentarios;
 
+    @OneToMany(mappedBy = "producto")
+    @ToString.Exclude
+    private List<DetalleCompra> listaDetallesCompra;
+
+    @OneToMany(mappedBy = "producto")
+    @ToString.Exclude
+    private List<Subasta> listaSubastas;
+
     @OneToMany(mappedBy = "codigo_producto")
     @ToString.Exclude
     private List<Chat> listaChats;
+
+    @ManyToMany(mappedBy = "usuarioListProductosFav")
+    @ToString.Exclude
+    private List<Usuario> prodListUsuarioProdFav;
 
     @ElementCollection
     @Column(nullable = false)
@@ -78,22 +97,10 @@ public class Producto implements Serializable {
     @ManyToOne
     private Usuario usuario;
 
-    @ManyToOne
-    private Ciudad ciudad;
-
-    @OneToMany(mappedBy = "producto")
-    @ToString.Exclude
-    private List<Subasta> listaSubastas;
-
-    @OneToMany(mappedBy = "producto")
-    @ToString.Exclude
-    private List<DetalleCompra> listaDetallesCompra;
-
     @ManyToMany(mappedBy = "productos")
     private List<Categoria> categorias;
 
-    @ManyToMany
-    private List<Usuario> usuarios;
+
 
     /**
      *Metodo constructor con argumentos

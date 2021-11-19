@@ -1,7 +1,10 @@
 package co.edu.uniquindio.proyecto.test;
 
 import co.edu.uniquindio.proyecto.entidades.Ciudad;
+import co.edu.uniquindio.proyecto.entidades.Producto;
+import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.CiudadRepo;
+import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +20,15 @@ public class CiudadTest {
 
     @Autowired
     private CiudadRepo ciudadRepo;
+    @Autowired
+    private UsuarioRepo usuarioRepo;
 
     //Registrar Ciudad
     @Test
     @Sql("classpath:dbInserts.sql")
-    public void registrarCiudadTest(){
+    public void registrarCiudadTest() {
         //Creo una Ciudad
-        Ciudad ciudad = new Ciudad(8,"Barranquilla");
+        Ciudad ciudad = new Ciudad(8, "Barranquilla");
         //Guardo la Ciudad
         Ciudad ciudadGuardado = ciudadRepo.save(ciudad);
 
@@ -35,10 +40,10 @@ public class CiudadTest {
     //Actualizar Ciudad
     @Test
     @Sql("classpath:dbInserts.sql")
-    public void actualizarCiudadTest(){
+    public void actualizarCiudadTest() {
 
         Ciudad guardado = ciudadRepo.findById(4).orElse(null);
-        System.out.println("--ciudad--: "+guardado);
+        System.out.println("--ciudad--: " + guardado);
         //modifico la ciudad
         guardado.setNombre("Bogota");
 
@@ -48,14 +53,14 @@ public class CiudadTest {
         Ciudad ciadadBuscado = ciudadRepo.findById(4).orElse(null);
         //verifico lo modificado
         Assertions.assertEquals("Bogota", ciadadBuscado.getNombre());
-        System.out.println("--ciudad--: "+ciadadBuscado);
+        System.out.println("--ciudad--: " + ciadadBuscado);
 
     }
 
     //Eliminar Ciudad
     @Test
     @Sql("classpath:dbInserts.sql")
-    public void eliminarCiudadTest(){
+    public void eliminarCiudadTest() {
         //Elimino la Ciudad
         ciudadRepo.deleteById(2);
         //Busco la ciudad eliminada
@@ -69,11 +74,25 @@ public class CiudadTest {
     //Listar Administrador
     @Test
     @Sql("classpath:dbInserts.sql")
-    public void listarAdministradorTest(){
+    public void listarAdministradorTest() {
         //Listar las Ciuades
         List<Ciudad> ciudades = ciudadRepo.findAll();
 
         //Imprimir la lista de las Ciuades
         ciudades.forEach(u -> System.out.println(u));
     }
+
+    //junciona
+    @Test
+    @Sql("classpath:dbInserts.sql")
+    public void listarUsuariosCiudadTest() {
+        List<Usuario> lista = ciudadRepo.listaUsuarios("Manizales");
+        //        lista.forEach(System.out::println);
+        Assertions.assertEquals(2, lista.size());
+    }
+
+
+
+
 }
+

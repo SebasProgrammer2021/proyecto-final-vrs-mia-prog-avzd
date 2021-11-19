@@ -30,6 +30,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class DetalleSubasta implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include

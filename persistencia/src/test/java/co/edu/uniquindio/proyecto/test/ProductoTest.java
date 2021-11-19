@@ -32,7 +32,7 @@ public class ProductoTest {
     //Registrar Producto
     @Test
     @Sql("classpath:dbInserts.sql")
-    public void registrarProductoTest(){
+    public void registrarProductoTest() {
 
         //Traigo el Usuario (2001) "Mario Fuentes"
         Usuario usuario = usuarioRepo.findById(2001).orElse(null);
@@ -42,7 +42,7 @@ public class ProductoTest {
 
         //Creo un Producto
         Producto producto = new Producto(5, "Teclado Gamer", 10, "61 teclas multicolor RGB iluminado LED retroiluminado programable para PC/Mac Gamer",
-                190000, LocalDateTime.of(2022,02,15,23,59), 0.2f, usuario, ciudad);
+                190000, LocalDateTime.of(2022, 02, 15, 23, 59), 0.2f, usuario, ciudad);
         //Guardo el Producto
         Producto usuarioGuardado = productoRepo.save(producto);
 
@@ -54,7 +54,7 @@ public class ProductoTest {
     //Actualizar Producto
     @Test
     @Sql("classpath:dbInserts.sql")
-    public void actualizarProductoTest(){
+    public void actualizarProductoTest() {
 
         Producto guardado = productoRepo.findById(1).orElse(null);
         //modifico el Producto
@@ -66,14 +66,14 @@ public class ProductoTest {
         Producto productoBuscado = productoRepo.findById(1).orElse(null);
         //verifico lo modificado
         Assertions.assertEquals("Morral de 10Lts", productoBuscado.getNombre());
-        System.out.println("--Producto--: "+productoBuscado);
+        System.out.println("--Producto--: " + productoBuscado);
 
     }
 
     //Eliminar Producto
     @Test
     @Sql("classpath:dbInserts.sql")
-    public void eliminarProductoTest(){
+    public void eliminarProductoTest() {
 
         //Elimino el Producto "3"
         productoRepo.deleteById(3);
@@ -89,11 +89,34 @@ public class ProductoTest {
     //Listar Producto
     @Test
     @Sql("classpath:dbInserts.sql")
-    public void listarProductoTest(){
+    public void listarProductoTest() {
         //Listo los Productos
         List<Producto> productos = productoRepo.findAll();
 
         //Imprimir la lista de Productos
         productos.forEach(u -> System.out.println(u));
+    }
+
+    @Test
+    @Sql("classpath:dbInserts.sql")
+    public void obtenerNombreVendedorProductoTest() {
+        String nombre = productoRepo.obtenerNombreVendedor(2);
+        Assertions.assertEquals("Mario Fuentes", nombre);
+    }
+
+    @Test
+    @Sql("classpath:dbInserts.sql")
+    public void listarProductosYComentariosTest() {
+        List<Object[]> lista = productoRepo.listaProdutosAndComentario();
+        lista.forEach(objeto -> System.out.println(objeto[0] + "-----" + objeto[1]));
+        Assertions.assertEquals(4, lista.size());
+    }
+
+    @Test
+    @Sql("classpath:dbInserts.sql")
+    public void listarUsuariosComentarioTest() {
+        List<Usuario> lista = productoRepo.listarUsuariosEnComentarios(1);
+        lista.forEach(System.out::println);
+//        Assertions.assertEquals(4, lista.size());
     }
 }

@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.repositorios;
 
+import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,4 +43,15 @@ public interface UsuarioRepo extends JpaRepository<Usuario, Integer> {
     Optional<Usuario> findByEmailAndPassword(String email, String clave);
 
     Page<Usuario> findAll(Pageable paginador);
+
+    //    la lista del in, va entre parentesis
+    //    el in y el join solo funcionan cuando yo quiero mezclar un obj con una lista de cosas.
+    @Query("select p from Usuario u, IN (u.usuarioListProductosFav) p where u.email = :email")
+    List<Producto> obtenerProductoFavoritos(String email);
+
+//    la misma consulta con left join me trae los que son nulos tambien
+    @Query("select u.email, u.nombre, p from Usuario u left join u.listaProductos p")
+    List<Object[]> listarUsuariosProductosPublicados();
+
+
 }

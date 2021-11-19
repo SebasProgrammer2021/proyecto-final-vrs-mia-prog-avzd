@@ -41,6 +41,7 @@ public class Usuario extends Persona implements Serializable {
     private String rol;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Ciudad ciudad;
 
     @OneToMany(mappedBy = "usuario_comprador")
@@ -65,6 +66,14 @@ public class Usuario extends Persona implements Serializable {
     @ElementCollection
     @Column(nullable = false)
     private Map<String, String> numTelefono;
+
+    @ManyToMany
+    private List<Producto> usuarioListProductosFav;
+
+    @OneToMany(mappedBy = "usuario")
+    @ToString.Exclude
+    private List<DetalleSubasta> listaDetalleSubasta;
+
 
     /**
      * Metodo constructor con argumentos
