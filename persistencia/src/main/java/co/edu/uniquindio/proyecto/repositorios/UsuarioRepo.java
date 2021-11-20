@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.repositorios;
 
+import co.edu.uniquindio.proyecto.dto.UsuarioProducto;
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import org.springframework.data.domain.Page;
@@ -49,9 +50,12 @@ public interface UsuarioRepo extends JpaRepository<Usuario, Integer> {
     @Query("select p from Usuario u, IN (u.usuarioListProductosFav) p where u.email = :email")
     List<Producto> obtenerProductoFavoritos(String email);
 
+//    forma 1
 //    la misma consulta con left join me trae los que son nulos tambien
-    @Query("select u.email, u.nombre, p from Usuario u left join u.listaProductos p")
-    List<Object[]> listarUsuariosProductosPublicados();
+//    @Query("select u.email, u.nombre, p from Usuario u left join u.listaProductos p")
+//    List<Object[]> listarUsuariosProductosPublicados();
 
-
+    //    forma 2 con dto, no importa que no reconozca el constructor, iugal pasa
+    @Query("select new  co.edu.uniquindio.proyecto.dto.UsuarioProducto(u.email, u.nombre, p) from Usuario u left join u.listaProductos p")
+    List<UsuarioProducto> listarUsuariosProductosPublicados();
 }

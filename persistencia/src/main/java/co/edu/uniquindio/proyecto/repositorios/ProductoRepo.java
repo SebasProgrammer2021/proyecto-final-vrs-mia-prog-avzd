@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.repositorios;
 
+import co.edu.uniquindio.proyecto.dto.ProductoValido;
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import org.springframework.data.domain.Page;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -40,4 +42,14 @@ public interface ProductoRepo extends JpaRepository<Producto, Integer> {
     //    distinct para que no repita un usuario
     @Query("select distinct lc.usuario from Producto p join p.listaComentarios lc where p.codigo = :codigo")
     List<Usuario> listarUsuariosEnComentarios(Integer codigo);
+
+    //    forma 1
+        @Query("select p.nombre, p.descripcion, p.precio, p.ciudad.nombre from Producto p where  :fechaActual <  p.fecha_limite")
+        List<Object[]> listaProductosValidos(LocalDateTime fechaActual);
+
+    //    forma 2 con dto, no funciona
+    //yano me devuelve un array de objetos, me devuelve un objeto, y es mas fácil manipularlo
+    //    marca lo rojo como advertencia proque piensa que va a devolver una lista, pero no es un errro
+//    @Query("select new co.edu.uniquindio.proyecto.dto.ProductoValido(p.nombre, p.descripcion, p.precio, p.ciudad.nombre, p.descuento) from Producto p where  :fechaActual <  p.fecha_limite")
+//    List<ProductoValido> listaProductosValidos(LocalDateTime fechaActual);
 }

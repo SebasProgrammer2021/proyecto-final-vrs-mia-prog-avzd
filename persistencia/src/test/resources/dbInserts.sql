@@ -63,7 +63,7 @@ La Carpa Iglú para 4 Personas Dome Color Gris de Klimber sirve para brindar alo
         259000, '2022-03-19', 0.23, 2002, 2),
        (3, 'ASADOR CARBON TIPO BARRIL CHAR-BROIL', 100,
         'Múltiples reguladores que permiten un fácil control del calor y el humo / Las ruedas de 8 pulgadas permiten una mayor movilidad / Con características que incluyen un estante lateral que ofrece mucho espacio para el trabajo de preparación',
-        508905, '2022-06-08', 0.15, 2007, 3);
+        508905, '2021-06-08', 0.15, 2007, 3);
 
 -- Insert de Chat
 insert into chat

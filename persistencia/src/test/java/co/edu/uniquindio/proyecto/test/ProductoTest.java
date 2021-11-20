@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.test;
 
+import co.edu.uniquindio.proyecto.dto.ProductoValido;
 import co.edu.uniquindio.proyecto.entidades.Ciudad;
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
@@ -117,6 +118,25 @@ public class ProductoTest {
     public void listarUsuariosComentarioTest() {
         List<Usuario> lista = productoRepo.listarUsuariosEnComentarios(1);
         lista.forEach(System.out::println);
-//        Assertions.assertEquals(4, lista.size());
+        Assertions.assertEquals(1, lista.size());
     }
+
+//    TEST FORMA 1 PARA ESTE METODO
+    @Test
+    @Sql("classpath:dbInserts.sql")
+    public void listarProductoValidosTest() {
+        List<Object[]> listaProductos = productoRepo.listaProductosValidos(LocalDateTime.now());
+
+        listaProductos.forEach(objeto -> System.out.println(objeto[0] + "-----" + objeto[1] + "-----" + objeto[2] + "-----" + objeto[3]));
+        Assertions.assertEquals(2, listaProductos.size());
+    }
+
+//    forma 2 dto, no funciona error- REVISAR
+//    @Test
+//    @Sql("classpath:dbInserts.sql")
+//    public void listarProductoValidosTest() {
+//        List<ProductoValido> listaProductos = productoRepo.listaProductosValidos(LocalDateTime.now());
+//        listaProductos.forEach(System.out::println);
+////        Assertions.assertEquals(2, listaProductos.size());
+//    }
 }
