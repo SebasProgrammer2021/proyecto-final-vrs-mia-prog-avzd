@@ -70,5 +70,10 @@ public interface ProductoRepo extends JpaRepository<Producto, Integer> {
     @Query("select new co.edu.uniquindio.proyecto.dto.ProductosPorUsuario(p.usuario.codigo, p.usuario.email, count(p)) from Producto p group by p.usuario")
     List<ProductosPorUsuario> obtnProductoEnVentaPorUsuario();
 
+    @Query("select p, count(p) as total from Producto p join p.categorias c group by c order by total desc")
+    List<Object[]> obtnCategoriaMasUsada();
 
+    //queda pendinete la prueba unitaria
+    @Query("select avg(lc.calificacion) from Producto p join p.listaComentarios lc where p.codigo = :codigo")
+    List<Object[]> obtnCalificacioPromedioProducto();
 }
