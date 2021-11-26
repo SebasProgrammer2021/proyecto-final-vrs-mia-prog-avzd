@@ -22,6 +22,12 @@ values (104, "Ropa");
 insert into categoria
 values (105, "Calzado");
 
+--Insert Categoria
+insert into categoria values (1, "Tecnologia");
+insert into categoria values (2, "Electrodomestico");
+insert into categoria values (3, "Ropa");
+insert into categoria values (4, "Accesorios");
+
 -- Insert de Ciudad
 insert into ciudad
 values (1, "Armenia");
@@ -64,6 +70,13 @@ La Carpa Iglú para 4 Personas Dome Color Gris de Klimber sirve para brindar alo
        (3, 'ASADOR CARBON TIPO BARRIL CHAR-BROIL', 100,
         'Múltiples reguladores que permiten un fácil control del calor y el humo / Las ruedas de 8 pulgadas permiten una mayor movilidad / Con características que incluyen un estante lateral que ofrece mucho espacio para el trabajo de preparación',
         508905, '2021-06-08', 0.15, 2007, 3);
+
+--Insert categoria_productos
+insert into categoria_productos values (1, 2);
+insert into categoria_productos values (2, 1);
+insert into categoria_productos values (3, 3);
+insert into categoria_productos values (4, 2);
+insert into categoria_productos values (4, 1);
 
 -- Insert de Chat
 insert into chat
@@ -112,6 +125,7 @@ values (201, '2021-11-05', 1),
 insert into compra
 values (100, '2021-11-05', "Efectivo", 2001),
        (101, '2021-10-15', "Targeta de Credito", 2002),
+       (105, '2021-10-18', "Targeta de Credito", 2002),
        (102, '2021-11-06', "Efectivo", 2003),
        (103, '2021-12-25', "Targeta de Credito", 2004),
        (104, '2021-12-01', "Targeta de Credito", 2004);
@@ -120,7 +134,8 @@ values (100, '2021-11-05', "Efectivo", 2001),
 insert into detalle_compra
 values (100, 150.000, 60, 101, 1),
        (101, 150.000, 20, 100, 2),
-       (102, 150.000, 80, 102, 3),
+       (105, 350.000, 1, 105, 3),
+       (102, 150.000, 80, 105, 3),
        (103, 150.000, 40, 100, 3),
        (104, 150.000, 10, 104, 1);
 

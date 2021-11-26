@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyecto.test;
 
 import co.edu.uniquindio.proyecto.entidades.Compra;
+import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.CompraRepo;
 import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
@@ -27,7 +28,7 @@ public class Compratest {
     //Registrar Compra
     @Test
     @Sql("classpath:dbInserts.sql")
-    public void registrarCompraTest(){
+    public void registrarCompraTest() {
 
         //Traigo el Usuario (2001) "Mario Fuentes"
         Usuario usuario = usuarioRepo.findById(2001).orElse(null);
@@ -45,7 +46,7 @@ public class Compratest {
     //Actualizar Compra
     @Test
     @Sql("classpath:dbInserts.sql")
-    public void actualizarCompraTest(){
+    public void actualizarCompraTest() {
 
         Compra guardado = compraRepo.findById(102).orElse(null);
         //modifico la Compra
@@ -57,14 +58,14 @@ public class Compratest {
         Compra compraBuscado = compraRepo.findById(102).orElse(null);
         //verifico lo modificado
         Assertions.assertEquals("Targeta de Credito", compraBuscado.getMedioPago());
-        System.out.println("--Compra--: "+compraBuscado);
+        System.out.println("--Compra--: " + compraBuscado);
 
     }
 
     //Eliminar Compra
     @Test
     @Sql("classpath:dbInserts.sql")
-    public void eliminarCompraTest(){
+    public void eliminarCompraTest() {
 
         //Elimino la Compra "103"
         compraRepo.deleteById(103);
@@ -80,11 +81,26 @@ public class Compratest {
     //Listar Compra
     @Test
     @Sql("classpath:dbInserts.sql")
-    public void listarCompraTest(){
+    public void listarCompraTest() {
         //Listo los Compras
         List<Compra> compras = compraRepo.findAll();
 
         //Imprimir la lista de Compras
         compras.forEach(u -> System.out.println(u));
     }
+
+    @Test
+    @Sql("classpath:dbInserts.sql")
+    public void listaProductosCompradosTest() {
+        Long totalProductos = compraRepo.obtnListaProductosComprados(2002);
+        System.out.println("total productos----->" + totalProductos);
+    }
+
+//    no terminado del todo, revisar el metodo en el repo de compra
+//    @Test
+//    @Sql("classpath:dbInserts.sql")
+//    public void totalVentasXUsuarioTEst() {
+//        List totalProductos = compraRepo.calcularTotalVentasXUsuario(2002);
+//        System.out.println("total productos----->" + totalProductos);
+//    }
 }

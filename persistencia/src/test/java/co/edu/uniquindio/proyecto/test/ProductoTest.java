@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyecto.test;
 
 import co.edu.uniquindio.proyecto.dto.ProductoValido;
+import co.edu.uniquindio.proyecto.dto.ProductosPorUsuario;
 import co.edu.uniquindio.proyecto.entidades.Ciudad;
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
@@ -121,7 +122,7 @@ public class ProductoTest {
         Assertions.assertEquals(1, lista.size());
     }
 
-//    TEST FORMA 1 PARA ESTE METODO
+    //    TEST FORMA 1 PARA ESTE METODO
     @Test
     @Sql("classpath:dbInserts.sql")
     public void listarProductoValidosTest() {
@@ -139,4 +140,38 @@ public class ProductoTest {
 //        listaProductos.forEach(System.out::println);
 ////        Assertions.assertEquals(2, listaProductos.size());
 //    }
+
+    @Test
+    @Sql("classpath:dbInserts.sql")
+    public void listarProductosCategoriasTest() {
+        List<Object[]> listaProductos = productoRepo.obtnTotalProductosPorCategoria();
+        listaProductos.forEach(r -> System.out.println(r[0] + ", " + r[1]));
+    }
+
+    @Test
+    @Sql("classpath:dbInserts.sql")
+    public void listarProductosSinComentariosTest() {
+        List<Producto> listaProductos = productoRepo.obtnProductosSinComentarios();
+//        listaProductos.forEach(System.out::println);
+        Assertions.assertTrue(listaProductos.get(0).getCodigo() == 3);
+    }
+
+    @Test
+    @Sql("classpath:dbInserts.sql")
+    public void obtnProductoPorNombreTest() {
+        List<Producto> producto = productoRepo.findByNombreContains("camping");
+        producto.forEach(System.out::println);
+//        Assertions.assertTrue(listaProductos.get(0).getCodigo() == 3);
+    }
+
+    @Test
+    @Sql("classpath:dbInserts.sql")
+    public void obtnProductosEnVentaXUsuarioTest() {
+        List<ProductosPorUsuario> productos = productoRepo.obtnProductoEnVentaPorUsuario();
+        Long[] arrayREspuesta = new Long[productos.size()];
+        for (int i = 0; i < productos.size(); i++) {
+            arrayREspuesta[i] = productos.get(i).getRegistros();
+        }
+        Assertions.assertArrayEquals(new Long[]{1L, 1L, 1L}, arrayREspuesta);
+    }
 }
