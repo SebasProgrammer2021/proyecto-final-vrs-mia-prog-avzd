@@ -44,7 +44,7 @@ public class UsuarioTest {
         telefonos.put("Trabajo", "7579863");
 
         //Creo un Usuario
-        Usuario usuario = new Usuario(2010, "Mariana Correa", "mariana@email.com", "B02020", "Vendedor", ciudad, telefonos);
+        Usuario usuario = new Usuario(2010, "Mariana Correa", "mariana@email.com", "B02020", "soyMarian", "Vendedor", ciudad, telefonos);
         //Guardo el Usuario
         Usuario usuarioGuardado = usuarioRepo.save(usuario);
 

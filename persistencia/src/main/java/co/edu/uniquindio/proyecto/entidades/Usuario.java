@@ -20,9 +20,9 @@ import java.util.Map;
  * List<Comentario> listaComentarios
  * List<Compra> listaCompras
  * List<Producto> listaProductos
- *
- *
- *
+ * <p>
+ * <p>
+ * <p>
  * Integrantes:
  * Juan Sebastian Tobon Alcaraz
  * Sebastian Londoño
@@ -40,11 +40,11 @@ public class Usuario extends Persona implements Serializable {
     @Column(nullable = false, length = 20)
     private String rol;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String username;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    //@JoinColumn(nullable = false)
     private Ciudad ciudad;
 
     @OneToMany(mappedBy = "usuario_comprador")
@@ -80,6 +80,7 @@ public class Usuario extends Persona implements Serializable {
 
     /**
      * Metodo constructor con argumentos
+     *
      * @param codigo
      * @param nombre
      * @param email
@@ -88,10 +89,12 @@ public class Usuario extends Persona implements Serializable {
      * @param ciudad
      * @param numTelefono
      */
-    public Usuario(Integer codigo, String nombre, String email, String password, String rol, Ciudad ciudad, Map<String, String> numTelefono) {
+    public Usuario(Integer codigo, String nombre, String email, String password, String username, String rol, Ciudad ciudad, Map<String, String> numTelefono) {
         super(codigo, nombre, email, password);
         this.rol = rol;
         this.ciudad = ciudad;
         this.numTelefono = numTelefono;
     }
+
+
 }
