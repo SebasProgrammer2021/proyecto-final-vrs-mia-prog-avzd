@@ -38,6 +38,8 @@ public interface UsuarioRepo extends JpaRepository<Usuario, Integer> {
     //    me devuelve un user que contenga este correo. solo uno proque el email es unique
     Optional<Usuario> findByEmail(String email);
 
+    Optional<Usuario> findByUsername(String username);
+
     //  @Query("select u from Usuario u where u.email = :email and u.password = :clave")
     //  Optional<Usuario> verificarAutenticacion(String email, String clave);
 

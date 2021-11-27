@@ -40,6 +40,9 @@ public class Usuario extends Persona implements Serializable {
     @Column(nullable = false, length = 20)
     private String rol;
 
+    @Column(nullable = false,unique = true)
+    private String username;
+
     @ManyToOne
     @JoinColumn(nullable = false)
     private Ciudad ciudad;

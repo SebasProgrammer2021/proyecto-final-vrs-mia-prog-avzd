@@ -26,11 +26,11 @@ public interface CompraRepo extends JpaRepository<Compra, Integer> {
     Long obtnListaProductosComprados(Integer codigo);
 
     @Query("select sum(dc.precioProducto * dc.unidades) from DetalleCompra dc where dc.producto.usuario.codigo = :codigo")
-    List calcularTotalVentasXUsuario(Integer cedula);
+    List calcularTotalVentasXUsuario(Integer codigo);
 
 //    total que ha gastado un user en compras
     @Query("select sum(dc.precioProducto * dc.unidades) from Compra c join c.listaDetallesCompra dc where c.usuario.codigo = :codigo")
-    List calcularTotalComprasXUsuario(Integer cedula);
+    List calcularTotalComprasXUsuario(Integer codigo);
 
     //falta hacer el dto, cambiar el obj por dto, que contenga la comrpa y el objeto detalle
     @Query("select c, dc from Compra c join c.listaDetallesCompra dc where c.usuario.codigo = :codigo")

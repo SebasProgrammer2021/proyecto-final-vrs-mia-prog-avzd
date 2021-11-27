@@ -1,8 +1,10 @@
 package co.edu.uniquindio.proyecto.entidades;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.io.Serializable;
 
 /**
@@ -35,9 +37,11 @@ public class Persona implements Serializable {
     private Integer codigo;
 
     @Column(nullable = false, length = 100)
+    @Length(max = 100)
     private String nombre;
 
     @Column(nullable = false, unique = true, length = 120)
+    @Email
     private String email;
 
     @Column(nullable = false, length = 30)
